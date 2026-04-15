@@ -11,32 +11,44 @@ public class Main{
         System.out.println("Accediendo directamente al precio: " + p1.precio);
         System.out.println("Accediendo directamente al stock: " + p1.stock);
         p1.mostrarInfo();
-
-            //Muestra de error
-        /*ESTO NO COMPILARÁ - Error de compilación
-         Las clases Vehiculo y Moto tienen acceso de paquete (default)
-         y no son visibles desde otro paquete, cuando colocamos Public en los metodos y constructores se corrige el error
-         */
+        System.out.println("==========================================");
         
-        Vehiculo v = new Vehiculo("Terrestre"); // ERROR: Vehiculo no es visible
-        Moto m = new Moto("Terrestre", "Yamaha"); // ERROR: Moto no es visible
-        
+        Vehiculo v = new Vehiculo("Terrestre"); 
+        Moto m = new Moto("Terrestre", "Yamaha"); 
         v.mostrarTipo();
         m.mostrarInfo();
+         System.out.println("==========================================");
+
+
+        //Prueba de Persona
+        Persona persona = new Persona("Juan Perez", 30);
+        // ===== PROBANDO ACCESO A ATRIBUTO PRIVADO =====
+        // System.out.println("Nombre directo: " + persona.nombre); 
+        // ERROR: nombre has private access in Persona
+        
+        // Debemos usar el método getter
+        System.out.println("Nombre (usando getter): " + persona.getNombre());
+        // Podemos usar el setter
+        persona.setNombre("Maria lucia");
+        System.out.println("Nombre actualizado: " + persona.getNombre());
+        // ===== PROBANDO ACCESO A ATRIBUTO DE PAQUETE (default) =====
+        System.out.println("Edad (acceso directo): " + persona.edad);
+        //FUNCIONA porque estamos en el mismo paquete
+        // Modificar directamente
+        persona.edad = 35;
+        System.out.println("Edad actualizada: " + persona.edad);
+        //FUNCIONA porque estamos en el mismo paquete
+        
     }
 }
-/**
- PruebaVehiculos.java:3: error: Vehiculo is not public in vehiculos; cannot be accessed from outside package
-import vehiculos.Vehiculo;
-                ^
+/*
+    ===== DIFERENCIAS =====
+    1. PRIVATE: Solo accesible dentro de la misma clase
+   - Necesitamos getters/setters para acceder desde fuera
+   - Máxima encapsulación
 
-PruebaVehiculos.java:4: error: Moto is not public in vehiculos; cannot be accessed from outside package
-import vehiculos.Moto;
-                ^
-
-PruebaVehiculos.java:10: error: cannot find symbol
-        Vehiculo v = new Vehiculo("Terrestre");
-        ^
-  symbol:   class Vehiculo
-  location: class PruebaVehiculos
- */
+    2. DEFAULT (paquete): Accesible desde el mismo paquete
+   - Acceso directo desde clases del mismo paquete
+   - NO accesible desde otros paquetes
+   - Menor encapsulación que private 
+*/
